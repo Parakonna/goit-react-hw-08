@@ -1,12 +1,18 @@
 .searchBox {
-  margin: 20px 40px;
+  margin: auto;
+  margin-top: 20px;
+  width: 500px;
+  text-align: center;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .input {
   font-size: 16px;
   padding: 5px 10px;
   width: 500px;
+  border: 2px solid rgb(96, 96, 4);
 }
