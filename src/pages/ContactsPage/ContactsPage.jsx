@@ -8,6 +8,7 @@ import { apiGetContacts } from '../../redux/contacts/operations';
 import ContactForm from '../../components/ContactForm/ContactForm';
 import ContactList from '../../components/ContactList/ContactList';
 import Loader from '../../components/Loader/Loader';
+import SearchBox from '../../components/SearchBox/SearchBox';
 
 const ContactsPage = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const ContactsPage = () => {
         </p>
       )}
       <ContactForm />
+      <SearchBox />
       <ContactList />
     </>
   );

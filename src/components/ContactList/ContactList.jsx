@@ -3,12 +3,12 @@ import Contact from '../Contact/Contact';
 import css from './ContactList.module.css';
 
 import { apiDeleteContact } from '../../redux/contacts/operations';
-import { selectContacts } from '../../redux/contacts/selectors';
+import { selectFilteredContacts } from '../../redux/contacts/slice';
 
 const ContactList = () => {
   const dispatch = useDispatch();
 
-  const contacts = useSelector(selectContacts);
+  const contacts = useSelector(selectFilteredContacts);
 
   const onDeleteProfile = contactId => {
     dispatch(apiDeleteContact(contactId));
