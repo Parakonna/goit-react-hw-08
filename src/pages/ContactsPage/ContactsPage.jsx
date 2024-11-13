@@ -2,9 +2,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectContactsError,
   selectContactsIsLoading,
-} from '../../redux/contakts/selectors';
+} from '../../redux/contacts/selectors';
 import { useEffect } from 'react';
-import { apiGetContacts } from '../../redux/contakts/operations';
+import { apiGetContacts } from '../../redux/contacts/operations';
 import ContactForm from '../../components/ContactForm/ContactForm';
 import ContactList from '../../components/ContactList/ContactList';
 import Loader from '../../components/Loader/Loader';

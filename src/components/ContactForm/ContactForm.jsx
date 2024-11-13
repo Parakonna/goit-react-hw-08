@@ -3,8 +3,8 @@ import css from './ContactForm.module.css';
 import * as Yup from 'yup';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { apiAddContact } from '../../redux/contakts/operations';
-import { selectContacts } from '../../redux/contakts/selectors';
+import { apiAddContact } from '../../redux/contacts/operations';
+import { selectContacts } from '../../redux/contacts/selectors';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
