@@ -1,7 +1,9 @@
-import { ErrorMessage, Field, Formik } from 'formik';
+import { ErrorMessage, Field, Formik, Form } from 'formik';
 import { RegisterUserSchema } from '../../utils/shemas';
-import { Form } from 'react-router-dom';
+/* import { Form } from 'react-router-dom'; */
 import css from './RegistrationPage.module.css';
+import { useDispatch } from 'react-redux';
+import { apiRegisterUser } from '../../redux/auth/operations';
 
 const INITIAL_VALUES = {
   name: '',
@@ -10,13 +12,15 @@ const INITIAL_VALUES = {
 };
 
 const RegistrationPage = () => {
+  const dispatch = useDispatch();
+
   const handleSubmit = (values, action) => {
-    console.log(values);
+    dispatch(apiRegisterUser(values));
+
     action.resetForm();
   };
   return (
     <div>
-      RegistrationPage
       <Formik
         initialValues={INITIAL_VALUES}
         validationSchema={RegisterUserSchema}
@@ -66,7 +70,9 @@ const RegistrationPage = () => {
             />
           </label>
 
-          <button type="submit">🤷‍♂️ Sign Up</button>
+          <button className={css.btn} type="submit">
+            🤷‍♂️ Sign Up
+          </button>
         </Form>
       </Formik>
     </div>

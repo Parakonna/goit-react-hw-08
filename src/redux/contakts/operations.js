@@ -1,40 +1,48 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { authInstance } from '../auth/operations';
 
-axios.defaults.baseURL = 'https://67293abf6d5fa4901b6c8aa0.mockapi.io';
-
-export const fetchContacts = createAsyncThunk(
-  'contacts/fetchAll',
-  async (_, thunkAPI) => {
+export const apiGetContacts = createAsyncThunk(
+  'contacts/getAllContacts',
+  async (_, thunkApi) => {
     try {
-      const response = await axios.get('/contacts');
-      return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+      const { data } = await authInstance.get('/contacts');
+
+      /* console.log('data: ', data); */
+      // []
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );
 
-export const addContact = createAsyncThunk(
+export const apiAddContact = createAsyncThunk(
   'contacts/addContact',
-  async (newContact, thunkAPI) => {
+  async (formData, thunkApi) => {
     try {
-      const response = await axios.post('/contacts', newContact);
-      return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+      const { data } = await authInstance.post('/contacts', formData);
+
+      console.log('data: ', data);
+      // { id: "123", name: "Ivan Ivanov", number: "+380123456789" }
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );
 
-export const deleteContact = createAsyncThunk(
+export const apiDeleteContact = createAsyncThunk(
   'contacts/deleteContact',
-  async (id, thunkAPI) => {
+  async (contactId, thunkApi) => {
+    // contactId -> "123"
     try {
-      const response = await axios.delete(`/contacts/${id}`);
-      return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+      const { data } = await authInstance.delete(`/contacts/${contactId}`);
+
+      console.log('data: ', data);
+      // { id: "123", name: "Ivan Ivanov", number: "+380123456789" }
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
     }
   },
 );

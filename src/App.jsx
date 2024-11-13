@@ -1,24 +1,33 @@
-/* import ContactForm from './components/ContactForm/ContactForm.jsx';
-import SearchBox from './components/SearchBox/SearchBox.jsx';
-import ContactList from './components/ContactList/ContactList.jsx'; */
-/* import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchContacts } from './redux/contakts/contactsOps.js'; */
 import { Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage/HomePage.jsx';
-import RegistrationPage from './pages/RegistrationPage/RegistrationPage.jsx';
-import LoginPage from './pages/LoginPage/LoginPage.jsx';
-import ContactsPage from './pages/ContactsPage/ContactsPage.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { lazy, useEffect } from 'react';
+import { apiGetCurrentUser } from './redux/auth/operations.js';
+import { selectUserDataIsRefreshing } from './redux/auth/selectors.js';
+
+import { PrivateRoute } from './components/PrivateRoute.jsx';
+import { RestrictedRoute } from './components/RestrictedRoute.jsx';
 import Layout from './components/Layout.jsx';
+
+const HomePage = lazy(() => import('../src/pages/HomePage/HomePage.jsx'));
+const RegistrationPage = lazy(() =>
+  import('../src/pages/RegistrationPage/RegistrationPage.jsx'),
+);
+const LoginPage = lazy(() => import('../src/pages/LoginPage/LoginPage.jsx'));
+const ContactsPage = lazy(() =>
+  import('../src/pages/ContactsPage/ContactsPage.jsx'),
+);
 /* import { fetchContacts } from './redux/contactsOps.js'; */
 
 function App() {
-  /*  const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectUserDataIsRefreshing);
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]); */
+    dispatch(apiGetCurrentUser());
+  }, [dispatch]);
 
-  return (
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
     <div>
       <Layout>
         <Routes>
@@ -26,39 +35,29 @@ function App() {
           <Route
             path="/register"
             element={
-              <RegistrationPage />
-              /*  <RegistrationPage
-              redirectTo="/contacts"
-              component={<RegistrationPage />}
-            /> */
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<RegistrationPage />}
+              />
             }
           />
           <Route
             path="/login"
             element={
-              <LoginPage />
-              /* <RegistrationPage
-              redirectTo="/contacts"
-              component={<LoginPage />}
-            /> */
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<LoginPage />}
+              />
             }
           />
           <Route
             path="/contacts"
             element={
-              <ContactsPage />
-              /*  <RegistrationPage
-              redirectTo="/login"
-              component={<ContactsPage />}
-            /> */
+              <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
             }
           />
         </Routes>
       </Layout>
-      {/*  <h1 style={{ marginLeft: '40px' }}>Phonebook</h1>
-      <ContactForm />
-      <SearchBox />
-      <ContactList /> */}
     </div>
   );
 }

@@ -1,33 +1,20 @@
 .form {
   margin: auto;
-  width: 500px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  border: 2px solid rgb(96, 96, 4);
-  border-radius: 4px;
+  width: 400px;
   padding: 20px;
+  border-radius: 8px;
+  border: 1px solid rgb(63, 63, 3);
 }
 
 .label {
-  display: contents;
+  display: flex;
   flex-direction: column;
-  gap: 6px;
-}
-.input {
-  font-size: 16px;
-  padding: 5px 10px;
-}
-
-.errorMessage {
-  color: red;
-  font-size: 12px;
-  font-weight: 600;
+  margin-bottom: 16px;
 }
 .btn {
-  margin: auto 10px;
-  width: auto;
-  height: 50px;
   border: 1px solid #646cff;
   border-radius: 4px;
   font-size: 16px;
